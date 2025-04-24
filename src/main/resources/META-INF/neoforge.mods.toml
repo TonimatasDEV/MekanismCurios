@@ -1,0 +1,48 @@
+modLoader="javafml"
+loaderVersion="${loaderVersionRange}"
+license="MIT"
+#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+
+[[mods]]
+modId="mekanismcurios"
+version="${modVersion}"
+displayName="Mekanism Curios"
+#updateJSONURL="https://change.me.example.invalid/updates.json"
+#displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
+#logoFile="examplemod.png"
+#credits=""
+authors="TonimatasDEV"
+description='''
+Integrate some Mekanism items with Curios.
+'''
+
+[[mixins]]
+config="mekanismcurios.mixins.json"
+
+#[[accessTransformers]]
+#file="META-INF/accesstransformer.cfg"
+
+[[dependencies.mekanismcurios]]
+    modId="neoforge"
+    type="required"
+    versionRange="${neoVersionRange}"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.mekanismcurios]]
+    modId="minecraft"
+    type="required"
+    versionRange="[${minecraftVersion}]"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.mekanismcurios]]
+    modId="mekanism"
+    type="required"
+    versionRange="${mekanismVersionRange}"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.mekanismcurios]]
+    modId="curios"
+    type="required"
+    versionRange="${curiosVersionRange}"
+    ordering="AFTER"
+    side="BOTH"
