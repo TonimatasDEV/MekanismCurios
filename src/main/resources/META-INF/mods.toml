@@ -16,30 +16,27 @@ description='''
 Integrate some Mekanism items with Curios.
 '''
 
-[[mixins]]
-config="mekanismcurios.mixins.json"
-
 [[dependencies.mekanismcurios]]
-    modId="neoforge"
-    type="required"
-    versionRange="${neoVersionRange}"
+    modId="forge"
+    mandatory=true
+    versionRange="${forgeVersionRange}"
     ordering="NONE"
     side="BOTH"
 [[dependencies.mekanismcurios]]
     modId="minecraft"
-    type="required"
+    mandatory=true
     versionRange="[${minecraftVersion}]"
     ordering="NONE"
     side="BOTH"
 [[dependencies.mekanismcurios]]
     modId="mekanism"
-    type="required"
+    mandatory=true
     versionRange="${mekanismVersionRange}"
     ordering="AFTER"
     side="BOTH"
 [[dependencies.mekanismcurios]]
     modId="curios"
-    type="required"
+    mandatory=true
     versionRange="${curiosVersionRange}"
     ordering="AFTER"
     side="BOTH"

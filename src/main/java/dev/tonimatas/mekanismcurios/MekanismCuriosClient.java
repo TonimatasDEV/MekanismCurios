@@ -1,26 +1,26 @@
 package dev.tonimatas.mekanismcurios;
 
-import dev.tonimatas.mekanismcurios.networking.OpenPortableQIOPacket;
+import dev.tonimatas.mekanismcurios.networking.ModMessages;
+import dev.tonimatas.mekanismcurios.networking.packet.OpenPortableQIOPacket;
 import dev.tonimatas.mekanismcurios.util.KeyBinding;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 public class MekanismCuriosClient {
-    @EventBusSubscriber(modid = MekanismCurios.MODID, value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(modid = MekanismCurios.MODID, value = Dist.CLIENT)
     public static class ClientForgeEvents {
         @SubscribeEvent
-        public static void onClientTick(ClientTickEvent.Post event) {
+        public static void onClientTick(InputEvent event) {
             while (KeyBinding.PORTABLE_QIO_MAPPING.get().consumeClick()) {
-                PacketDistributor.sendToServer(new OpenPortableQIOPacket());
+                ModMessages.sendToServer(new OpenPortableQIOPacket());
             }
         }
     }
     
-    @EventBusSubscriber(modid = MekanismCurios.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = MekanismCurios.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ClientModBusEvents {
         @SubscribeEvent
         public static void onKeyRegister(RegisterKeyMappingsEvent event) {
