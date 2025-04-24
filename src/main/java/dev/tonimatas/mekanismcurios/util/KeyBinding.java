@@ -11,5 +11,5 @@ public class KeyBinding {
     public static final String KEY_PORTABLE_QIO = "key.mekanismcurios.protableqio";
     
     public static final Lazy<KeyMapping> PORTABLE_QIO_MAPPING = Lazy.of(() -> new KeyMapping(KEY_PORTABLE_QIO, 
-            KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_T, KEY_CATEGORY));
+            KeyConflictContext.IN_GAME, InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_Y, KEY_CATEGORY));
 }
