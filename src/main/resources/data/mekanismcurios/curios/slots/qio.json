@@ -1,5 +1,5 @@
 {
   "size": 1,
-  "icon": "minecraft:item/empty_armor_slot_boots",
+  "icon": "mekanismcurios:slot/qio_slot",
   "add_cosmetic": false
 }
