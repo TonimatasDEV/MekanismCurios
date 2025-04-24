@@ -17,9 +17,6 @@ import org.slf4j.Logger;
 import top.theillusivec4.curios.api.CuriosApi;
 import top.theillusivec4.curios.api.CuriosCapability;
 
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
 @Mod(MekanismCurios.MODID)
 public class MekanismCurios {
     public static final String MODID = "mekanismcurios";
@@ -42,10 +39,15 @@ public class MekanismCurios {
     }
     
     public static ItemStack getQIO(Player player) {
-        return CuriosApi.getCuriosInventory(player).map(iCuriosItemHandler -> iCuriosItemHandler.getCurios().get("qio").getStacks().getStackInSlot(0)).orElse(ItemStack.EMPTY);
+        return CuriosApi.getCuriosInventory(player).map(iCuriosItemHandler -> 
+                iCuriosItemHandler.getCurios().get("qio").getStacks().getStackInSlot(0)).orElse(ItemStack.EMPTY);
     }
-    
-    
+
+    public static void setQIO(Player player, ItemStack stack) {
+        CuriosApi.getCuriosInventory(player).ifPresent(curiosInventory -> 
+                curiosInventory.setEquippedCurio("qio", 0, stack));
+    }
+
     public static ItemStack getHandOrCuriosItem(Player player, InteractionHand hand) {
         if (hand == null) {
             return MekanismCurios.getQIO(player);
