@@ -1,16 +1,16 @@
 modLoader="javafml"
 loaderVersion="${loaderVersionRange}"
 license="MIT"
-#issueTrackerURL="https://change.me.to.your.issue.tracker.example.invalid/"
+issueTrackerURL="https://github.com/TonimatasDEV/MekanismCurios/issues"
 
 [[mods]]
 modId="mekanismcurios"
 version="${modVersion}"
 displayName="Mekanism Curios"
 #updateJSONURL="https://change.me.example.invalid/updates.json"
-#displayURL="https://change.me.to.your.mods.homepage.example.invalid/"
-#logoFile="examplemod.png"
-#credits=""
+displayURL="https://github.com/TonimatasDEV/MekanismCurios"
+logoFile="logo.png"
+credits="Thanks to Mekanism and Curios maintainers!"
 authors="TonimatasDEV"
 description='''
 Integrate some Mekanism items with Curios.
@@ -18,9 +18,6 @@ Integrate some Mekanism items with Curios.
 
 [[mixins]]
 config="mekanismcurios.mixins.json"
-
-#[[accessTransformers]]
-#file="META-INF/accesstransformer.cfg"
 
 [[dependencies.mekanismcurios]]
     modId="neoforge"
