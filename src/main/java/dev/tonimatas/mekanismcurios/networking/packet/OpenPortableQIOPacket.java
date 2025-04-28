@@ -24,7 +24,7 @@ public class OpenPortableQIOPacket {
 
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
-            Level level = player.level();
+            Level level = player.level;
             ItemStack stack = MekanismCurios.getQIO(player);
             
             if (!stack.isEmpty() && stack.getItem() instanceof ItemPortableQIODashboard) {

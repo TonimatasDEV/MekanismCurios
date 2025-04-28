@@ -9,11 +9,9 @@
   },
   "mixins": [
     "ContainerTypeRegistryObjectMixin",
-    "MekanismItemContainerMixin",
     "MekanismItemContainerTypeMixin",
     "PacketItemButtonPressMixin",
     "PacketSetItemFrequencyMixin",
-    "PortableQIODashboardContainerMixin",
     "SecurityUtilsMixin"
   ]
 }

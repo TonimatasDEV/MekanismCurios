@@ -82,9 +82,9 @@ dependencies {
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
     compileOnly(fg.deobf("mekanism:Mekanism:$minecraftVersion-$mekanismVersion:api"))
     compileOnly(fg.deobf("mekanism:Mekanism:$minecraftVersion-$mekanismVersion"))
-    compileOnly(fg.deobf("top.theillusivec4.curios:curios-forge:$curiosVersion+$minecraftVersion:api"))
+    compileOnly(fg.deobf("top.theillusivec4.curios:curios-forge:$minecraftVersion-$curiosVersion:api"))
     runtimeOnly(fg.deobf("mekanism:Mekanism:$minecraftVersion-$mekanismVersion"))
-    runtimeOnly(fg.deobf("top.theillusivec4.curios:curios-forge:$curiosVersion+$minecraftVersion"))
+    runtimeOnly(fg.deobf("top.theillusivec4.curios:curios-forge:$minecraftVersion-$curiosVersion"))
 }
 
 tasks.processResources {
