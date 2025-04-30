@@ -30,7 +30,11 @@ public class MekanismCurios {
     }
 
     public void enqueueIMC(final InterModEnqueueEvent event) {
-        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, () -> new SlotTypeMessage.Builder("qio").priority(0).size(1).icon(ResourceLocation.tryBuild(MODID, "textures/curios_slots/qio_slot.png")).build());
+        InterModComms.sendTo(CuriosApi.MODID, SlotTypeMessage.REGISTER_TYPE, 
+                () -> new SlotTypeMessage.Builder("qio")
+                        .size(1)
+                        .icon(ResourceLocation.tryBuild(CuriosApi.MODID, "slot/empty_qio_slot"))
+                        .build());
     }
     
     public static ItemStack getQIO(Player player) {
