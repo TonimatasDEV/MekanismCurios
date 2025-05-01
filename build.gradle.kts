@@ -20,7 +20,7 @@ val mekanismVersionRange: String by extra
 val curiosVersion: String by extra
 val curiosVersionRange: String by extra
 
-version = modVersion
+version = "$minecraftVersion-$modVersion"
 group = "dev.tonimatas.mekanismcurios"
 
 base {

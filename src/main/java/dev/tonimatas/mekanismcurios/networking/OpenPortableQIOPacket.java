@@ -2,6 +2,7 @@ package dev.tonimatas.mekanismcurios.networking;
 
 import dev.tonimatas.mekanismcurios.MekanismCurios;
 import mekanism.common.item.ItemPortableQIODashboard;
+import mekanism.common.lib.security.ItemSecurityUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -30,8 +31,8 @@ public record OpenPortableQIOPacket() implements CustomPacketPayload {
             Level level = player.level();
             ItemStack stack = MekanismCurios.getQIO(player);
             
-            if (!stack.isEmpty() && stack.getItem() instanceof ItemPortableQIODashboard) {
-                stack.use(level, player, null);
+            if (!stack.isEmpty() && stack.getItem() instanceof ItemPortableQIODashboard item) {
+                ItemSecurityUtils.get().claimOrOpenGui(level, player, null, item.getContainerType()::tryOpenGui);
             }
         });
     }
