@@ -3,6 +3,7 @@ package dev.tonimatas.mekanismcurios.networking.packet;
 
 import dev.tonimatas.mekanismcurios.MekanismCurios;
 import mekanism.common.item.ItemPortableQIODashboard;
+import mekanism.common.util.SecurityUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
@@ -27,8 +28,8 @@ public class OpenPortableQIOPacket {
             Level level = player.level();
             ItemStack stack = MekanismCurios.getQIO(player);
             
-            if (!stack.isEmpty() && stack.getItem() instanceof ItemPortableQIODashboard) {
-                stack.use(level, player, null);
+            if (!stack.isEmpty() && stack.getItem() instanceof ItemPortableQIODashboard item) {
+                SecurityUtils.get().claimOrOpenGui(level, player, null, item.getContainerType()::tryOpenGui);
             }
         });
 
