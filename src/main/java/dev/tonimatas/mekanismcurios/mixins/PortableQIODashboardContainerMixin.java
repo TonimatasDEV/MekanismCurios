@@ -24,7 +24,7 @@ public abstract class PortableQIODashboardContainerMixin {
     @Inject(method = "stillValid", at = @At("HEAD"), cancellable = true)
     private void mci$stillValid(Player player, CallbackInfoReturnable<Boolean> cir) {
         if (this.hand == null) {
-            ItemStack curiosStack = MekanismCurios.getQIO(player);
+            ItemStack curiosStack = MekanismCurios.getSlot(player);
             boolean validCurios = !curiosStack.isEmpty() && (curiosStack.is(this.stack.getItem()));
             cir.setReturnValue(validCurios);
         }
@@ -33,8 +33,8 @@ public abstract class PortableQIODashboardContainerMixin {
     @Inject(method = "addInventorySlots", at = @At("RETURN"))
     private void mci$addInventorySlots(Inventory inv, CallbackInfo ci) {
         if (this.hand == null) {
-            ((PortableQIODashboardContainer) (Object) this).track(SyncableItemStack.create(() -> MekanismCurios.getQIO(inv.player), item -> {
-                MekanismCurios.setQIO(inv.player, item);
+            ((PortableQIODashboardContainer) (Object) this).track(SyncableItemStack.create(() -> MekanismCurios.getSlot(inv.player), item -> {
+                MekanismCurios.setSlot(inv.player, item);
                 if (stack.is(item.getItem())) {
                     stack = item;
                 }

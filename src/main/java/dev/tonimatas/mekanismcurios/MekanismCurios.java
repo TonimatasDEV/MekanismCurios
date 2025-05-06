@@ -1,8 +1,10 @@
 package dev.tonimatas.mekanismcurios;
 
 import com.mojang.logging.LogUtils;
+import dev.tonimatas.mekanismcurios.bridge.PlayerBridge;
 import dev.tonimatas.mekanismcurios.networking.OpenPortableQIOPacket;
 import mekanism.common.registries.MekanismItems;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -38,19 +40,25 @@ public class MekanismCurios {
         registrar.commonToServer(OpenPortableQIOPacket.TYPE, OpenPortableQIOPacket.STREAM_CODEC, new MainThreadPayloadHandler<>(OpenPortableQIOPacket::handle));
     }
     
-    public static ItemStack getQIO(Player player) {
+    public static ItemStack getSlot(Player player) {
+        String slot = ((PlayerBridge) player).mci$getSlot().id();
+        
         return CuriosApi.getCuriosInventory(player).map(iCuriosItemHandler -> 
-                iCuriosItemHandler.getCurios().get("qio").getStacks().getStackInSlot(0)).orElse(ItemStack.EMPTY);
+                iCuriosItemHandler.getCurios().get(slot).getStacks().getStackInSlot(0)).orElse(ItemStack.EMPTY);
     }
 
-    public static void setQIO(Player player, ItemStack stack) {
-        CuriosApi.getCuriosInventory(player).ifPresent(curiosInventory -> 
-                curiosInventory.setEquippedCurio("qio", 0, stack));
+    public static void setSlot(Player player, ItemStack stack) {
+        if (player instanceof ServerPlayer) {
+            String slot = ((PlayerBridge) player).mci$getSlot().id();
+
+            CuriosApi.getCuriosInventory(player).ifPresent(curiosInventory ->
+                    curiosInventory.setEquippedCurio(slot, 0, stack));
+        }
     }
 
     public static ItemStack getHandOrCuriosItem(Player player, InteractionHand hand) {
         if (hand == null) {
-            return MekanismCurios.getQIO(player);
+            return MekanismCurios.getSlot(player);
         } else {
             return player.getItemInHand(hand);
         }

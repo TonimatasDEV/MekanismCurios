@@ -1,6 +1,7 @@
 package dev.tonimatas.mekanismcurios;
 
 import dev.tonimatas.mekanismcurios.networking.OpenPortableQIOPacket;
+import dev.tonimatas.mekanismcurios.util.CuriosSlots;
 import dev.tonimatas.mekanismcurios.util.KeyBinding;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -15,7 +16,11 @@ public class MekanismCuriosClient {
         @SubscribeEvent
         public static void onClientTick(ClientTickEvent.Post event) {
             while (KeyBinding.PORTABLE_QIO_MAPPING.get().consumeClick()) {
-                PacketDistributor.sendToServer(new OpenPortableQIOPacket());
+                PacketDistributor.sendToServer(new OpenPortableQIOPacket(CuriosSlots.QIO));
+            }
+
+            while (KeyBinding.PORTABLE_TELEPORTER_MAPPING.get().consumeClick()) {
+                PacketDistributor.sendToServer(new OpenPortableQIOPacket(CuriosSlots.TELEPORTER));
             }
         }
     }
@@ -25,6 +30,7 @@ public class MekanismCuriosClient {
         @SubscribeEvent
         public static void onKeyRegister(RegisterKeyMappingsEvent event) {
             event.register(KeyBinding.PORTABLE_QIO_MAPPING.get());
+            event.register(KeyBinding.PORTABLE_TELEPORTER_MAPPING.get());
         }
     }
 }

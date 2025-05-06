@@ -1,7 +1,9 @@
 package dev.tonimatas.mekanismcurios.networking;
 
 import dev.tonimatas.mekanismcurios.MekanismCurios;
-import mekanism.common.item.ItemPortableQIODashboard;
+import dev.tonimatas.mekanismcurios.bridge.PlayerBridge;
+import dev.tonimatas.mekanismcurios.util.CuriosSlots;
+import mekanism.common.item.interfaces.IGuiItem;
 import mekanism.common.lib.security.ItemSecurityUtils;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -13,11 +15,14 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
-public record OpenPortableQIOPacket() implements CustomPacketPayload {
+public record OpenPortableQIOPacket(CuriosSlots slot) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<OpenPortableQIOPacket> TYPE = 
             new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(MekanismCurios.MODID, "portable_qio_packet"));
 
-    public static final StreamCodec<FriendlyByteBuf, OpenPortableQIOPacket> STREAM_CODEC = StreamCodec.unit(new OpenPortableQIOPacket());
+    public static final StreamCodec<FriendlyByteBuf, OpenPortableQIOPacket> STREAM_CODEC = StreamCodec.composite(
+            CuriosSlots.CURIOS_SLOT_STREAM_CODEC, OpenPortableQIOPacket::slot,
+            OpenPortableQIOPacket::new
+    );
     
     @Override
     public @NotNull Type<? extends CustomPacketPayload> type() {
@@ -29,10 +34,15 @@ public record OpenPortableQIOPacket() implements CustomPacketPayload {
         context.enqueueWork(() -> {
             Player player = context.player();
             Level level = player.level();
-            ItemStack stack = MekanismCurios.getQIO(player);
+
+            ((PlayerBridge) player).mci$setSlot(packet.slot);
+
+            ItemStack stack = MekanismCurios.getHandOrCuriosItem(player, null);
             
-            if (!stack.isEmpty() && stack.getItem() instanceof ItemPortableQIODashboard item) {
-                ItemSecurityUtils.get().claimOrOpenGui(level, player, null, item.getContainerType()::tryOpenGui);
+            if (!stack.isEmpty()) {
+                if (stack.getItem() instanceof IGuiItem item) {
+                    ItemSecurityUtils.get().claimOrOpenGui(level, player, null, item.getContainerType()::tryOpenGui);
+                }
             }
         });
     }

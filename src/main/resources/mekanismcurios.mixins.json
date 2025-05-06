@@ -13,8 +13,10 @@
     "MekanismItemContainerTypeMixin",
     "PacketItemButtonPressMixin",
     "PacketItemGuiInteractMixin",
+    "PacketPortableTeleporterTeleportMixin",
     "PacketSetItemFrequencyMixin",
     "PacketUtilsMixin",
+    "PlayerMixin",
     "PortableQIODashboardContainerMixin"
   ]
 }
