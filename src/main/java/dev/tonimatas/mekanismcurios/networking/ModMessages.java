@@ -26,8 +26,8 @@ public class ModMessages {
         INSTANCE = net;
 
         net.messageBuilder(OpenPortableQIOPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
-                .decoder(OpenPortableQIOPacket::new)
-                .encoder(OpenPortableQIOPacket::toBytes)
+                .decoder(OpenPortableQIOPacket::decode)
+                .encoder(OpenPortableQIOPacket::encode)
                 .consumerMainThread(OpenPortableQIOPacket::handle)
                 .add();
     }

@@ -24,7 +24,7 @@ public class MekanismItemContainerMixin {
     @Inject(method = "stillValid", at = @At("HEAD"), cancellable = true)
     private void mci$stillValid(Player player, CallbackInfoReturnable<Boolean> cir) {
         if (this.hand == null) {
-            ItemStack curiosStack = MekanismCurios.getQIO(player);
+            ItemStack curiosStack = MekanismCurios.getSlot(player);
             boolean validCurios = !curiosStack.isEmpty() && (curiosStack.is(this.stack.getItem()));
             cir.setReturnValue(validCurios);
         }
