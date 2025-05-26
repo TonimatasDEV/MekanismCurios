@@ -34,6 +34,8 @@ minecraft {
 
     copyIdeResources = true
 
+    accessTransformers.setFrom("src/main/resources/META-INF/accesstransformer.cfg")
+    
     runs {
         create("client") {
             property("forge.enabledGameTestNamespaces", "mekanismcurios")
