@@ -3,6 +3,7 @@ package dev.tonimatas.mekanismcurios;
 import com.mojang.logging.LogUtils;
 import dev.tonimatas.mekanismcurios.bridge.PlayerBridge;
 import dev.tonimatas.mekanismcurios.networking.OpenPortableQIOPacket;
+import dev.tonimatas.mekanismcurios.networking.QuickTeleportActionPacket;
 import dev.tonimatas.mekanismcurios.util.CuriosSlots;
 import mekanism.common.registries.MekanismItems;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,6 +46,7 @@ public class MekanismCurios {
     public void registerNetworking(final RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar("1");
         registrar.commonToServer(OpenPortableQIOPacket.TYPE, OpenPortableQIOPacket.STREAM_CODEC, new MainThreadPayloadHandler<>(OpenPortableQIOPacket::handle));
+        registrar.commonToServer(QuickTeleportActionPacket.TYPE, QuickTeleportActionPacket.STREAM_CODEC, new MainThreadPayloadHandler<>(QuickTeleportActionPacket::handle));
     }
     
     public static ItemStack getSlot(Player player) {
