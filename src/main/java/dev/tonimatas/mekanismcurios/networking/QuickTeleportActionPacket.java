@@ -17,10 +17,12 @@ import mekanism.common.registries.MekanismDataComponents;
 import mekanism.common.tile.TileEntityTeleporter;
 import mekanism.common.util.StorageUtils;
 import mekanism.common.util.WorldUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
@@ -57,6 +59,7 @@ public record QuickTeleportActionPacket() implements CustomPacketPayload {
                 Frequency.FrequencyIdentity identity = getIdentity(item, stack);
                 
                 if (identity == null) {
+                    player.sendSystemMessage(Component.translatable("key.mekanismcurios.quickteleport.notconnected").withStyle(ChatFormatting.RED));
                     return;
                 }
                 
@@ -76,6 +79,7 @@ public record QuickTeleportActionPacket() implements CustomPacketPayload {
                             energyCost = TileEntityTeleporter.calculateEnergyCost(player, teleWorld, coords);
                             IEnergyContainer energyContainer = StorageUtils.getEnergyContainer(stack, 0);
                             if (energyContainer == null || energyContainer.extract(energyCost, Action.SIMULATE, AutomationType.MANUAL) < energyCost) {
+                                player.sendSystemMessage(Component.translatable("key.mekanismcurios.quickteleport.noenergy").withStyle(ChatFormatting.RED));
                                 return;
                             }
                             energyExtraction = () -> energyContainer.extract(energyCost, Action.EXECUTE, AutomationType.MANUAL);
@@ -115,24 +119,28 @@ public record QuickTeleportActionPacket() implements CustomPacketPayload {
                         } catch (Exception ignored) {
                         }
                     }
+                } else {
+                    player.sendSystemMessage(Component.translatable("key.mekanismcurios.quickteleport.notfound").withStyle(ChatFormatting.RED));
                 }
+            } else {
+                player.sendSystemMessage(Component.translatable("key.mekanismcurios.quickteleport.empty").withStyle(ChatFormatting.RED));
             }
         });
     }
     
     private static Frequency.FrequencyIdentity getIdentity(ItemPortableTeleporter teleporter, ItemStack stack) {
         DataComponentType<? extends FrequencyAware<?>> frequencyComponent = MekanismDataComponents.getFrequencyComponent(teleporter.getFrequencyType());
+
         if (frequencyComponent == null) {
             return null;
         }
+
         FrequencyAware<?> frequencyAware = stack.get(frequencyComponent);
+
         if (frequencyAware != null) {
-            Frequency.FrequencyIdentity identity = frequencyAware.identity().orElse(null);
-            if (identity != null) {
-                return identity;
-            }
+            return frequencyAware.identity().orElse(null);
         }
-        
+
         return null;
     }
 }

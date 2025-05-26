@@ -3,7 +3,6 @@ package dev.tonimatas.mekanismcurios.networking;
 import dev.tonimatas.mekanismcurios.MekanismCurios;
 import dev.tonimatas.mekanismcurios.bridge.PlayerBridge;
 import dev.tonimatas.mekanismcurios.util.CuriosSlots;
-import mekanism.common.item.ItemPortableTeleporter;
 import mekanism.common.item.interfaces.IGuiItem;
 import mekanism.common.lib.security.ItemSecurityUtils;
 import net.minecraft.network.FriendlyByteBuf;
