@@ -1,9 +1,10 @@
 package dev.tonimatas.mekanismcurios.networking.packet;
 
 
-import dev.tonimatas.mekanismcurios.MekanismCurios;
 import dev.tonimatas.mekanismcurios.bridge.PlayerBridge;
 import dev.tonimatas.mekanismcurios.util.CuriosSlots;
+import dev.tonimatas.mekanismcurios.util.TeleporterUtil;
+import mekanism.common.item.ItemPortableTeleporter;
 import mekanism.common.item.interfaces.IGuiItem;
 import mekanism.common.util.SecurityUtils;
 import net.minecraft.network.FriendlyByteBuf;
@@ -36,10 +37,20 @@ public class OpenPortableQIOPacket {
         context.enqueueWork(() -> {
             ServerPlayer player = context.getSender();
             Level level = player.level();
+            
+            if (this.slot == CuriosSlots.QUICK_TELEPORT) {
+                ItemStack stack = CuriosSlots.TELEPORTER.getItemStack(player);
+                
+                if (!stack.isEmpty() && stack.getItem() instanceof ItemPortableTeleporter) {
+                    TeleporterUtil.handle(player);
+                }
+
+                return;
+            }
 
             ((PlayerBridge) player).mci$setSlot(this.slot);
 
-            ItemStack stack = this.slot.getItemStack(player);;
+            ItemStack stack = this.slot.getItemStack(player);
 
             if (!stack.isEmpty()) {
                 if (stack.getItem() instanceof IGuiItem item) {

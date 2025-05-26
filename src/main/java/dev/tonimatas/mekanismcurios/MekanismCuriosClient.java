@@ -22,6 +22,10 @@ public class MekanismCuriosClient {
             while (KeyBinding.PORTABLE_TELEPORTER_MAPPING.get().consumeClick()) {
                 ModMessages.sendToServer(new OpenPortableQIOPacket(CuriosSlots.TELEPORTER));
             }
+
+            while (KeyBinding.QUICK_TELEPORT_MAPPING.get().consumeClick()) {
+                ModMessages.sendToServer(new OpenPortableQIOPacket(CuriosSlots.QUICK_TELEPORT));
+            }
         }
     }
     
@@ -31,6 +35,7 @@ public class MekanismCuriosClient {
         public static void onKeyRegister(RegisterKeyMappingsEvent event) {
             event.register(KeyBinding.PORTABLE_QIO_MAPPING.get());
             event.register(KeyBinding.PORTABLE_TELEPORTER_MAPPING.get());
+            event.register(KeyBinding.QUICK_TELEPORT_MAPPING.get());
         }
     }
 }
