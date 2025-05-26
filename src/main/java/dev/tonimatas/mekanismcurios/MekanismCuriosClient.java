@@ -2,6 +2,7 @@ package dev.tonimatas.mekanismcurios;
 
 import dev.tonimatas.mekanismcurios.networking.ModMessages;
 import dev.tonimatas.mekanismcurios.networking.packet.OpenPortableQIOPacket;
+import dev.tonimatas.mekanismcurios.networking.packet.QuickTeleportActionPacket;
 import dev.tonimatas.mekanismcurios.util.CuriosSlots;
 import dev.tonimatas.mekanismcurios.util.KeyBinding;
 import net.minecraftforge.api.distmarker.Dist;
@@ -24,7 +25,7 @@ public class MekanismCuriosClient {
             }
 
             while (KeyBinding.QUICK_TELEPORT_MAPPING.get().consumeClick()) {
-                ModMessages.sendToServer(new OpenPortableQIOPacket(CuriosSlots.QUICK_TELEPORT));
+                ModMessages.sendToServer(new QuickTeleportActionPacket());
             }
         }
     }

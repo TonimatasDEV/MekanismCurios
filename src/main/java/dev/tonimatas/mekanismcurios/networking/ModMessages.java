@@ -2,6 +2,7 @@ package dev.tonimatas.mekanismcurios.networking;
 
 import dev.tonimatas.mekanismcurios.MekanismCurios;
 import dev.tonimatas.mekanismcurios.networking.packet.OpenPortableQIOPacket;
+import dev.tonimatas.mekanismcurios.networking.packet.QuickTeleportActionPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
@@ -29,6 +30,12 @@ public class ModMessages {
                 .decoder(OpenPortableQIOPacket::decode)
                 .encoder(OpenPortableQIOPacket::encode)
                 .consumerMainThread(OpenPortableQIOPacket::handle)
+                .add();
+
+        net.messageBuilder(QuickTeleportActionPacket.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(QuickTeleportActionPacket::decode)
+                .encoder(QuickTeleportActionPacket::encode)
+                .consumerMainThread(QuickTeleportActionPacket::handle)
                 .add();
     }
 

@@ -9,14 +9,12 @@ import top.theillusivec4.curios.api.SlotContext;
 
 public enum CuriosSlots {
     QIO,
-    TELEPORTER,
-    QUICK_TELEPORT;
+    TELEPORTER;
 
     public Item getItem() {
         return switch (this) {
             case QIO -> MekanismItems.PORTABLE_QIO_DASHBOARD.get();
             case TELEPORTER -> MekanismItems.PORTABLE_TELEPORTER.get();
-            default -> ItemStack.EMPTY.getItem();
         };
     }
 
