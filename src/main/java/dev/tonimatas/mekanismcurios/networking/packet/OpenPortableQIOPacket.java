@@ -39,7 +39,7 @@ public class OpenPortableQIOPacket {
 
             ((PlayerBridge) player).mci$setSlot(this.slot);
 
-            ItemStack stack = MekanismCurios.getHandOrCuriosItem(player, null);
+            ItemStack stack = this.slot.getItemStack(player);;
 
             if (!stack.isEmpty()) {
                 if (stack.getItem() instanceof IGuiItem item) {
