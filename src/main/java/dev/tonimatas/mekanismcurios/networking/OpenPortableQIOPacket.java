@@ -16,8 +16,8 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
 public record OpenPortableQIOPacket(CuriosSlots slot) implements CustomPacketPayload {
-    public static final CustomPacketPayload.Type<OpenPortableQIOPacket> TYPE = 
-            new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(MekanismCurios.MODID, "portable_qio_packet"));
+    public static final Type<OpenPortableQIOPacket> TYPE = 
+            new Type<>(ResourceLocation.fromNamespaceAndPath(MekanismCurios.MODID, "portable_qio_packet"));
 
     public static final StreamCodec<FriendlyByteBuf, OpenPortableQIOPacket> STREAM_CODEC = StreamCodec.composite(
             CuriosSlots.CURIOS_SLOT_STREAM_CODEC, OpenPortableQIOPacket::slot,
@@ -37,7 +37,7 @@ public record OpenPortableQIOPacket(CuriosSlots slot) implements CustomPacketPay
 
             ((PlayerBridge) player).mci$setSlot(packet.slot);
 
-            ItemStack stack = MekanismCurios.getHandOrCuriosItem(player, null);
+            ItemStack stack = packet.slot.getItemStack(player);
             
             if (!stack.isEmpty()) {
                 if (stack.getItem() instanceof IGuiItem item) {
