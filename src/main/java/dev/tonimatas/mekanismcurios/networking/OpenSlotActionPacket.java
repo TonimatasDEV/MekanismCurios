@@ -15,13 +15,13 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.jetbrains.annotations.NotNull;
 
-public record OpenPortableQIOPacket(CuriosSlots slot) implements CustomPacketPayload {
-    public static final Type<OpenPortableQIOPacket> TYPE = 
+public record OpenSlotActionPacket(CuriosSlots slot) implements CustomPacketPayload {
+    public static final Type<OpenSlotActionPacket> TYPE = 
             new Type<>(ResourceLocation.fromNamespaceAndPath(MekanismCurios.MODID, "portable_qio_packet"));
 
-    public static final StreamCodec<FriendlyByteBuf, OpenPortableQIOPacket> STREAM_CODEC = StreamCodec.composite(
-            CuriosSlots.CURIOS_SLOT_STREAM_CODEC, OpenPortableQIOPacket::slot,
-            OpenPortableQIOPacket::new
+    public static final StreamCodec<FriendlyByteBuf, OpenSlotActionPacket> STREAM_CODEC = StreamCodec.composite(
+            CuriosSlots.CURIOS_SLOT_STREAM_CODEC, OpenSlotActionPacket::slot,
+            OpenSlotActionPacket::new
     );
     
     @Override
@@ -30,7 +30,7 @@ public record OpenPortableQIOPacket(CuriosSlots slot) implements CustomPacketPay
     }
     
     @SuppressWarnings({"DataFlowIssue", "unused"})
-    public static void handle(final OpenPortableQIOPacket packet, final IPayloadContext context) {
+    public static void handle(final OpenSlotActionPacket packet, final IPayloadContext context) {
         context.enqueueWork(() -> {
             Player player = context.player();
             Level level = player.level();

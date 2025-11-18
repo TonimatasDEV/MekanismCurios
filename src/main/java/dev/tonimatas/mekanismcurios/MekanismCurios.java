@@ -2,7 +2,7 @@ package dev.tonimatas.mekanismcurios;
 
 import com.mojang.logging.LogUtils;
 import dev.tonimatas.mekanismcurios.bridge.PlayerBridge;
-import dev.tonimatas.mekanismcurios.networking.OpenPortableQIOPacket;
+import dev.tonimatas.mekanismcurios.networking.OpenSlotActionPacket;
 import dev.tonimatas.mekanismcurios.networking.QuickTeleportActionPacket;
 import dev.tonimatas.mekanismcurios.util.CuriosSlots;
 import mekanism.common.registries.MekanismItems;
@@ -45,7 +45,7 @@ public class MekanismCurios {
     @SubscribeEvent
     public void registerNetworking(final RegisterPayloadHandlersEvent event) {
         final PayloadRegistrar registrar = event.registrar("1");
-        registrar.commonToServer(OpenPortableQIOPacket.TYPE, OpenPortableQIOPacket.STREAM_CODEC, new MainThreadPayloadHandler<>(OpenPortableQIOPacket::handle));
+        registrar.commonToServer(OpenSlotActionPacket.TYPE, OpenSlotActionPacket.STREAM_CODEC, new MainThreadPayloadHandler<>(OpenSlotActionPacket::handle));
         registrar.commonToServer(QuickTeleportActionPacket.TYPE, QuickTeleportActionPacket.STREAM_CODEC, new MainThreadPayloadHandler<>(QuickTeleportActionPacket::handle));
     }
     
